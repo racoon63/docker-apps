@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  rocketchat-db:
+    image: mongo
+    container_name: "mongodb"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "rocketchat"
+      MONGO_INITDB_ROOT_PASSWORD: "rocketchat"
+      MONGO_INITDB_DATABASE: "rocketchat"
+    volumes:
+      - "rocketchat-db:/data/db"
+    networks:
+      - rocketchat
+
+  rocketchat:
+    image: rocketchat/rocket.chat:latest
+    container_name: "myapp"
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      ROOT_URL: "http://localhost"
+      MONGO_URL: "mongodb://rocketchat-db:27017/data/db"
+    volumes:
+      - "rocketchat-data:/data/"
+    networks:
+      - rocketchat
+    depends_on:
+      - rocketchat-db
+
+volumes:
+  rocketchat-db:
+    driver: local
+  rocketchat-data:
+    driver: local
+
+networks:
+  rocketchat:
