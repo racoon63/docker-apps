@@ -1,0 +1,29 @@
+version: "2"
+services:
+  webapp:
+    image: gitlab/gitlab-ce:latest
+    restart: always
+    hostname: gitlab.datalevel.ddns.net
+    environment:
+      GITLAB_OMNIBUS_CONFIG: external_url 'http://gitlab.datalevel.ddns.net'
+    networks:
+      - gitlab-ce
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8022:22"
+    volumes:
+      - "gitlab-ce-configs:/etc/gitlab"
+      - "gitlab-ce-logs:/var/log/gitlab"
+      - "gitlab-ce-data:/var/opt/gitlab"
+
+volumes:
+  gitlab-ce-configs:
+    driver: local
+  gitlab-ce-logs:
+    driver: local
+  gitlab-ce-data:
+    driver: local
+
+networks:
+  gitlab-ce:
