@@ -12,7 +12,9 @@ services:
     volumes:
       - "gogs-db:/var/lib/mysql"
     environment:
-      MYSQL_DATABASE: "gogs"
+      MYSQL_ROOT_PASSWORD: "gogs"
+      #MYSQL_DATABASE: "gogs"
+      MYSQL_USER: "gogs"
 
   webapp:
     image: gogs/gogs:latest
