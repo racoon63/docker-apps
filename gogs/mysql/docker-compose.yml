@@ -13,8 +13,9 @@ services:
       - "gogs-db:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: "gogs"
-      #MYSQL_DATABASE: "gogs"
+      MYSQL_DATABASE: "gogs_new"
       MYSQL_USER: "gogs"
+      MYSQL_PASSWORD: "gogs"
 
   webapp:
     image: gogs/gogs:latest
